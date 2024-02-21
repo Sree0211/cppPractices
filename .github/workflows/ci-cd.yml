@@ -15,7 +15,7 @@ jobs:
           uses: actions/checkout@v2
 
         - name: Set up compiler
-          uses: sudo apt-get install -y g++
+          run: sudo apt-get update && sudo apt-get install -y g++
         
         - name: Compile C++ file
           run: g++ newProj.cc -o newProj
@@ -23,20 +23,8 @@ jobs:
         - name: Run C++ executable
           run: ./newProj
             
-        # - name: Build
-        #   run: |
-        #     cmake -B build
-        #     cmake --build build
-        
-        # - name: Test
-        #   run: |
-        #     cd build
-        #     ctest
         - name: Upload Artifact
           uses: actions/upload-artifact@v2
           with:
             name: newProj-executable
             path: ./newProj
-        
-
-
