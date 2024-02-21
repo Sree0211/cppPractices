@@ -11,21 +11,32 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
-        - uses: actions/checkout@v2
+        - name: Check out the repository
+          uses: actions/checkout@v2
 
-        - name: Set up CMake
-          uses: actions/setup-cmake@v1
+        - name: Set up compiler
+          uses: sudo apt-get install -y g++
+        
+        - name: Compile C++ file
+          run: g++ newProj.cc -o newProj
+
+        - name: Run C++ executable
+          run: ./newProj
+            
+        # - name: Build
+        #   run: |
+        #     cmake -B build
+        #     cmake --build build
+        
+        # - name: Test
+        #   run: |
+        #     cd build
+        #     ctest
+        - name: Upload Artifact
+          uses: actions/upload-artifact@v2
           with:
-            cmake-version: '3.21'
+            name: newProj-executable
+            path: ./newProj
         
-        - name: Build
-          run: |
-            cmake -B build
-            cmake --build build
-        
-        - name: Test
-          run: |
-            cd build
-            ctest
 
 
